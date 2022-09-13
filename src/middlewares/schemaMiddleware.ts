@@ -1,6 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
+import { ObjectSchema } from 'joi';
 
-export default function (schema: any) {
+export default function (schema: ObjectSchema) {
     return (
         req: Request, 
         res: Response, 
