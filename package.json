@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && npx prisma generete && npx prisma migrate deploy",
+    "start": "node ./dist/server.js",
     "dev": "nodemon ./src/server.ts"
   },
   "keywords": [],
