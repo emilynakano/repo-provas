@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { errorTypeToStatusCode, isAppError } from '../utils/errorUtils'
 
 export default function handleErrorMiddleware(
-    err,
+    err: any,
     req:Request, 
     res: Response, 
     next: NextFunction
@@ -14,6 +14,6 @@ export default function handleErrorMiddleware(
     }
 
     console.log(err);
-    
+
     res.sendStatus(500);
 }
