@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --no-cache",
     "build": "tsc && npx prisma generate && npx prisma migrate deploy",
     "start": "node ./dist/server.js",
     "dev": "nodemon ./src/server.ts"
