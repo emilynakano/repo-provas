@@ -1,7 +1,9 @@
 import * as testRepository from '../repositories/testRepository';
+
 import * as categoryService from '../services/categoryService';
 import * as teacherService from '../services/teacherService';
-import * as disciplineService from '../services/disciplineService'
+import * as disciplineService from '../services/disciplineService';
+import * as teacherDisciplineService from '../services/teacherDisciplineService'
 
 import * as errorUtils from '../utils/errorUtils'
 
@@ -28,4 +30,9 @@ export async function createTest( dataTest: ITest ) {
 
     const discipline = await disciplineService.getDisciplineById(disciplineId);
     if(!discipline) throw errorUtils.notFoundError('discipline');
+
+    const relationTeacherDiscipline = await teacherDisciplineService.getTeacherDiscipline( teacherId, disciplineId );
+    if(!relationTeacherDiscipline) throw errorUtils.notFoundError('relation between teacher and discipline');
+
+    console.log(relationTeacherDiscipline)
 }
