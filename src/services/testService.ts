@@ -1,6 +1,7 @@
 import * as testRepository from '../repositories/testRepository';
 import * as categoryService from '../services/categoryService';
 import * as teacherService from '../services/teacherService';
+import * as disciplineService from '../services/disciplineService'
 
 import * as errorUtils from '../utils/errorUtils'
 
@@ -15,7 +16,8 @@ interface ITest {
 export async function createTest( dataTest: ITest ) {
     const {
         categoryId,
-        teacherId
+        teacherId,
+        disciplineId
     } = dataTest;
 
     const category = await categoryService.getCategoryById(categoryId);
@@ -23,4 +25,7 @@ export async function createTest( dataTest: ITest ) {
 
     const teacher = await teacherService.getTeacherById(teacherId);
     if(!teacher) throw errorUtils.notFoundError('teacher');
+
+    const discipline = await disciplineService.getDisciplineById(disciplineId);
+    if(!discipline) throw errorUtils.notFoundError('discipline');
 }
