@@ -17,6 +17,8 @@ interface ITest {
 
 export async function createTest( dataTest: ITest ) {
     const {
+        name,
+        pdfUrl,
         categoryId,
         teacherId,
         disciplineId
@@ -34,5 +36,10 @@ export async function createTest( dataTest: ITest ) {
     const relationTeacherDiscipline = await teacherDisciplineService.getTeacherDiscipline( teacherId, disciplineId );
     if(!relationTeacherDiscipline) throw errorUtils.notFoundError('relation between teacher and discipline');
 
-    console.log(relationTeacherDiscipline)
+    await testRepository.insertTest({
+        name,
+        pdfUrl,
+        categoryId, 
+        teacherDisciplineId: relationTeacherDiscipline.id
+    });
 }
