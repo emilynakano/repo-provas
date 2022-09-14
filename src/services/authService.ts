@@ -16,4 +16,8 @@ export async function createUser(dataUser: authRepository.CreateUser) {
 
 export async function loginUser(dataUser: authRepository.CreateUser) {
     const { email, password } = dataUser;
+
+    const user = await authRepository.findByEmail(email);
+    if(!user) throw errorUtils.notFoundError('user');
+    
 }
