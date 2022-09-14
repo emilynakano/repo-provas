@@ -19,5 +19,7 @@ export async function loginUser(dataUser: authRepository.CreateUser) {
 
     const user = await authRepository.findByEmail(email);
     if(!user) throw errorUtils.notFoundError('user');
-    
+
+    const matchPassword = await bcrypt.compare(password, user.password);
+    if(!matchPassword) throw errorUtils.unauthorizedError('credential');
 }
