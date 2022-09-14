@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import * as authRepository from '../repositories/authRepository';
 import * as errorUtils from '../utils/errorUtils'
@@ -22,4 +23,7 @@ export async function loginUser(dataUser: authRepository.CreateUser) {
 
     const matchPassword = await bcrypt.compare(password, user.password);
     if(!matchPassword) throw errorUtils.unauthorizedError('credential');
+
+    const token = jwt.sign({id: user.id}, (process.env.JWT_SECRET_KEY as string), {expiresIn: '30d'})
+    return token;
 }
