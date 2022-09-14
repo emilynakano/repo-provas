@@ -3,7 +3,15 @@ import * as categoryService from '../services/categoryService';
 
 import * as errorUtils from '../utils/errorUtils'
 
-export async function createTest( dataTest: testRepository.CreateTest ) {
+interface ITest {
+    name: string;
+    pdfUrl: string;
+    categoryId: number;
+    teacherId: number;
+    disciplineId: number;
+}
+
+export async function createTest( dataTest: ITest ) {
     const {
         categoryId
     } = dataTest;
