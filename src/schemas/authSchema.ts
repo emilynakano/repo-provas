@@ -9,5 +9,9 @@ const createUserSchema = joi.object({
     .messages({ 'any.only': '{{#label}} does not match' })
 })
 
+const loginUserSchema = joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().required()
+})
 
-export {createUserSchema}
+export {createUserSchema, loginUserSchema}
