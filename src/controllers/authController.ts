@@ -4,8 +4,7 @@ import * as authService from '../services/authService'
 
 export async function createUser (
     req: Request, 
-    res: Response, 
-    next: NextFunction
+    res: Response
 ) {
     const { email, password } = req.body;
 

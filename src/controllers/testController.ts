@@ -4,8 +4,7 @@ import * as testService from '../services/testService'
 
 export async function createTest (
     req: Request, 
-    res: Response, 
-    next: NextFunction
+    res: Response
 ) {
     const dataTest = req.body;
 
