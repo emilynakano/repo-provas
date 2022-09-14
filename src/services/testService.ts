@@ -1,7 +1,13 @@
-import { Test } from '@prisma/client';
+import * as testRepository from '../repositories/testRepository';
+import * as categoryService from '../services/categoryService';
 
-type CreateTest = Omit<Test, "id">
+import * as errorUtils from '../utils/errorUtils'
 
-export async function createTest(dataTest:CreateTest) {
-    
+export async function createTest( dataTest: testRepository.CreateTest ) {
+    const {
+        categoryId
+    } = dataTest;
+
+    const category = await categoryService.getCategoryById(categoryId)
+    if(!category) throw errorUtils.notFoundError('category')
 }
