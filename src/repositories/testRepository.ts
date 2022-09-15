@@ -9,3 +9,7 @@ export async function insertTest( dataTest:CreateTest ) {
         data: dataTest
     })
 }
+
+export async function getTestsByTeacher() {
+    
+}

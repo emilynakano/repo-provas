@@ -43,3 +43,9 @@ export async function createTest( dataTest: ITest ) {
         teacherDisciplineId: relationTeacherDiscipline.id
     });
 }
+
+export async function getTestsByTeacher() {
+    const tests = await testRepository.getTestsByTeacher();
+
+    return tests;
+}

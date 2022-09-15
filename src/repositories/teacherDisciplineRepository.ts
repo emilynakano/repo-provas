@@ -7,6 +7,7 @@ export async function getTeacherDiscipline ( teacherId: number, disciplineId: nu
             disciplineId
         }
     });
-
+    
     return teacherDiscipline;
 }
+
