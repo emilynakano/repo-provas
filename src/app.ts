@@ -5,10 +5,6 @@ import cors from 'cors';
 import router from './routes/index';
 import handleErrorMiddleware from './middlewares/handleErrorMiddleware';
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const app = express();
 
 app.use(cors());
