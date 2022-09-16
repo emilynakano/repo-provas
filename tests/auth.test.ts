@@ -44,6 +44,20 @@ describe("POST /sign-in", () => {
         expect(response.status).toEqual(200);
     });
 
+    it("should answer with status 401 when credentials are invalid", async () => {
+        const user = await generateUser();
+        const wrongUser = await generateUser();
+
+        await inserUser(user);
+
+        const response = await agent.post("/sign-in").send({
+            email: wrongUser.email,
+            password: wrongUser.password
+        });
+        
+        expect(response.status).toEqual(401);
+    });
+
 });
 
 afterAll(async () => {

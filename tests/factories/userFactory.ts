@@ -3,12 +3,14 @@ import prisma from '../../src/config/database';
 import bcrypt from 'bcrypt';
 
 export async function generateUser() {
+    const password = faker.internet.password(10);
+
     const user = {
         email: faker.internet.email(),
-        password: "1234567890",
-        confirmPassword: "1234567890"
+        password: password,
+        confirmPassword: password
     }
-
+    
     return user
 }
 
