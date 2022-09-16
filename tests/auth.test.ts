@@ -3,23 +3,47 @@ import supertest from 'supertest';
 
 import prisma from "../src/config/database";
 
+import {generateUser, inserUser} from './factories/userFactory'
+
 beforeEach(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE users;`;
 });
 
+const agent = supertest(app);
+
 describe("POST /sign-up", () => {
     it("given a valid user it should return 201", async () => {
-        const body = {
-            email: "louiss@hotmail.com",
-            password: "1234567890",
-            confirmPassword: "1234567890"
-        }
-
-        const result = await supertest(app).post("/sign-up").send(body);
-        const status = result.status;
+        const user = await generateUser()
+        const response = await agent.post("/sign-up").send(user);
         
-        expect(status).toEqual(201);
+        expect(response.status).toEqual(201);
     });
+
+    it("given a user already registred it should return 409", async () => {
+        const user = await generateUser();
+
+        await inserUser(user);
+
+        const response = await agent.post("/sign-up").send(user);
+        
+        expect(response.status).toEqual(409);
+    });
+});
+
+describe("POST /sign-in", () => {
+    it("should answer with status 200 when credentials are valid", async () => {
+        const user = await generateUser();
+
+        await inserUser(user);
+
+        const response = await agent.post("/sign-in").send({
+            email: user.email,
+            password: user.password
+        });
+        
+        expect(response.status).toEqual(200);
+    });
+
 });
 
 afterAll(async () => {
