@@ -10,6 +10,6 @@ export async function insertTest( dataTest:CreateTest ) {
     })
 }
 
-export async function getTestsByTeacher() {
+export async function getTestsFromDiscipline() {
     
 }

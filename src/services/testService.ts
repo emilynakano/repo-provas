@@ -44,8 +44,8 @@ export async function createTest( dataTest: ITest ) {
     });
 }
 
-export async function getTestsByTeacher() {
-    const tests = await testRepository.getTestsByTeacher();
+export async function getTestsFromDiscipline() {
+    const tests = await testRepository.getTestsFromDiscipline();
 
     return tests;
 }

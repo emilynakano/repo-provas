@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import * as testService from '../services/testService'
 
@@ -13,13 +13,11 @@ export async function createTest (
     res.status(201).send('Test created sucessfully!')
 }
 
-export async function getTestsByTeacher (
+export async function getTestsFromDiscipline (
     req: Request, 
     res: Response
 ) {
-    const dataTest = req.body;
-
-    const tests = await testService.getTestsByTeacher()
+    const tests = await testService.getTestsFromDiscipline()
 
     res.status(200).send(tests)
 }
