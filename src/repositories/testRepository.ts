@@ -11,5 +11,19 @@ export async function insertTest( dataTest:CreateTest ) {
 }
 
 export async function getTestsFromDiscipline() {
-    
+  const tests = await prisma.term.findMany({
+    select: {
+        number: true,
+        discipline: {
+          select: {
+            id: true,
+            name: true,
+            teachersDscipline: true
+          },
+        },
+      },
+      
+})
+
+
 }
