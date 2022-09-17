@@ -49,3 +49,7 @@ export async function getTestsFromDiscipline() {
 
     return tests;
 }
+
+export async function getTestsFromTeacher() {
+    
+}

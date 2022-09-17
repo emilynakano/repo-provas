@@ -16,4 +16,8 @@ testRouter.get('/tests/disciplines',
     testController.getTestsFromDiscipline
 )
 
+testRouter.get('/tests/teachers',
+    testController.getTestsFromTeacher
+)
+
 export default testRouter;
