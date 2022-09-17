@@ -31,7 +31,17 @@ const categories = await prisma.category.findMany({
     name: true,
     tests: {
       include: {
-        teachersDiscipline: true
+        teachersDiscipline: {
+          select: {
+            disciplineId: true,
+            teacher: {
+              select: {
+                name: true,
+                id: true
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -39,8 +49,8 @@ const categories = await prisma.category.findMany({
 
 const testsWithCategory = tests.map((test) => {
   return {
-    number: test.number,
-    discipline: test.discipline.map((discipline) => {
+    term: test.number,
+    disciplines: test.discipline.map((discipline) => {
       return {
         id: discipline.id,
         name: discipline.name,
@@ -48,16 +58,18 @@ const testsWithCategory = tests.map((test) => {
           return {
             id: categorie.id,
             name: categorie.name,
-            test: categorie.tests.map((test) => {
+            tests: categorie.tests.map((test) => {
               if(test.teachersDiscipline.disciplineId === discipline.id)
                 return {
                   id: test.id,
                   name: test.name,
+                  teacherName: test.teachersDiscipline.teacher.name,
+                  teacherId: test.teachersDiscipline.teacher.id,
                   pdfUrl: test.pdfUrl
                 }
             }).filter((testExists) => testExists)
           }
-        }).filter((categoriesExists) => categoriesExists.test.length > 0)
+        }).filter((categoriesExists) => categoriesExists.tests.length > 0)
       }
     })
   }
