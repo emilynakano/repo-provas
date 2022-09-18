@@ -58,3 +58,9 @@ export async function getTestsFromTeacher() {
     
     return tests;
 }
+
+export async function getTestFromId(id: number) {
+    const tests = await testRepository.getTestFromId(id);
+    
+    return tests;
+}

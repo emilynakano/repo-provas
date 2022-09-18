@@ -136,4 +136,36 @@ export async function getTestsFromTeacher() {
   })
 
   return testsWithCategory
+};
+
+export async function getTestFromId(id: number) {
+  const tests = await prisma.test.findUnique({
+    where: {
+      id
+    },
+    select: {
+      name: true,
+      category: {
+        select: {
+          name: true
+        }
+      },
+      teachersDiscipline: {
+        select: {
+          teacher: {
+            select: {
+              name: true
+            }
+          },
+          discipline: {
+            select: {
+              name: true
+            }
+          }
+        }
+      }
+    }
+  })
+  
+  return tests;
 }
