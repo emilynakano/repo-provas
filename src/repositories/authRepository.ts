@@ -25,3 +25,9 @@ export async function findById(id: number) {
         }
     })
 }
+
+export async function getUsers() {
+    const user = await prisma.user.findMany()
+
+    return user
+}

@@ -10,6 +10,12 @@ export async function findUserById(id: number) {
     return user
 }
 
+export async function getUsers() {
+    const users = await authRepository.getUsers();
+    
+    return users
+}
+
 export async function createUser(dataUser: authRepository.CreateUser) {
     const { email, password } = dataUser;
     
