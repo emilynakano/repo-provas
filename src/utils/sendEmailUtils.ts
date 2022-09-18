@@ -6,7 +6,8 @@ dotenv.config();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-export async function sendEmail() {
+export async function sendEmail(id: number) {
+  console.log(id)
   const users = await getUsers();
 
   const msg = {
