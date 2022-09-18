@@ -25,10 +25,10 @@ export async function loginUser(dataUser: authRepository.CreateUser) {
     const { email, password } = dataUser;
 
     const user = await authRepository.findByEmail(email);
-    if(!user) throw errorUtils.unauthorizedError('user');
+    if(!user) throw errorUtils.unauthorizedError('credentials');
 
     const matchPassword = await bcrypt.compare(password, user.password);
-    if(!matchPassword) throw errorUtils.unauthorizedError('user');
+    if(!matchPassword) throw errorUtils.unauthorizedError('credentials');
 
     const secretKey = process.env.JWT_SECRET_KEY??'secretKey';
     
