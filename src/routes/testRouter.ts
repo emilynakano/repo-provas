@@ -1,11 +1,15 @@
 import * as testController from '../controllers/testController';
 
 import schemaMiddleware from '../middlewares/schemaMiddleware';
+import tokenMiddleware from '../middlewares/tokenMiddleware';
+
 import testSchema from '../schemas/testSchema';
 
 import { Router } from 'express';
 
 const testRouter = Router();
+
+testRouter.use(tokenMiddleware);
 
 testRouter.post('/tests',
     schemaMiddleware(testSchema),
