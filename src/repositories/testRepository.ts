@@ -87,4 +87,28 @@ export async function getTestsFromTeacher() {
     }
   });
 
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      name: true,
+      tests: {
+        select: {
+          id: true,
+          name: true,
+          teachersDiscipline: {
+            select: {
+              teacherId: true,
+              discipline: {
+                select: {
+                  name: true,
+                  id: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
 }
