@@ -110,5 +110,28 @@ export async function getTestsFromTeacher() {
       }
     }
   });
+  
+  const testsWithCategory = teachers.map((teacher) => {
+    return {
+      id: teacher.id,
+      name: teacher.name,
+      categories: categories.map((categorie) => {
+        return {
+          id: categorie.id,
+          name: categorie.name,
+          tests: categorie.tests.map((test) => {
+            if(teacher.id === test.teachersDiscipline.teacherId)
+            return {
+              id: test.id,
+              name: test.name,
+              disciplineName: test.teachersDiscipline.discipline.name,
+              disciplineId: test.teachersDiscipline.discipline.id,
+            }
+          }).filter((testExists) => testExists)
+        }
+      }).filter((categorieExists) => categorieExists.tests.length > 0)
+    }
+  })
 
+  return testsWithCategory
 }
