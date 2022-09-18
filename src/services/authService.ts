@@ -2,7 +2,13 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import * as authRepository from '../repositories/authRepository';
-import * as errorUtils from '../utils/errorUtils'
+import * as errorUtils from '../utils/errorUtils';
+
+export async function findUserById(id: number) {
+    const user = await authRepository.findById(id);
+
+    return user
+}
 
 export async function createUser(dataUser: authRepository.CreateUser) {
     const { email, password } = dataUser;
