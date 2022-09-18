@@ -58,6 +58,18 @@ describe("GET /tests/disciplines", () => {
 
 });
 
+describe("GET /tests/teachers", () => {
+
+    it("given a valid token it should answer with status 200", async () => {
+        const token = await createToken();
+        const test = await generateTest();
+
+        const response = await agent.get('/tests/teachers').set('Authorization', `Bearer ${token}`)
+        expect(response.status).toBe(200);
+    });
+
+});
+
 
 
 afterAll(async () => {
