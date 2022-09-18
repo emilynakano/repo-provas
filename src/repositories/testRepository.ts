@@ -5,13 +5,13 @@ import { Test } from '@prisma/client';
 export type CreateTest = Omit<Test, "id">
 
 export async function insertTest( dataTest:CreateTest ) {
-    await prisma.test.create({
-        data: dataTest
-    })
+  await prisma.test.create({
+      data: dataTest
+  })
 }
 
 export async function getTestsFromDiscipline() {
-  const tests = await prisma.term.findMany({
+  const terms = await prisma.term.findMany({
     select: {
         number: true,
         discipline: {
@@ -47,10 +47,10 @@ export async function getTestsFromDiscipline() {
     }
   });
 
-  const testsWithCategory = tests.map((test) => {
+  const testsWithCategory = terms.map((term) => {
     return {
-      term: test.number,
-      disciplines: test.discipline.map((discipline) => {
+      term: term.number,
+      disciplines: term.discipline.map((discipline) => {
         return {
           id: discipline.id,
           name: discipline.name,
@@ -110,7 +110,7 @@ export async function getTestsFromTeacher() {
       }
     }
   });
-  
+
   const testsWithCategory = teachers.map((teacher) => {
     return {
       id: teacher.id,
