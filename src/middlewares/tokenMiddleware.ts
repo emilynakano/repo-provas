@@ -15,5 +15,13 @@ export default async function tokenMiddleware (
     const token = req.headers.authorization?.replace('Bearer ', '');
     if(!token) throw unauthorizedError('token');
     
+    try {
+        const secretKey = (process.env.JWT_SECRET_KEY as string);
+        const { id } = jwt.verify(token, secretKey) as { id: number};
+        console.log(id)
+    } catch(err) {
+        throw unauthorizedError('token')
+    }
+
     next()
 }
