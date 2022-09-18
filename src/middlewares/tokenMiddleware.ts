@@ -18,7 +18,7 @@ export default async function tokenMiddleware (
     if(!token) throw errorUtils.unauthorizedError('token');
     
     try {
-        const secretKey = (process.env.JWT_SECRET_KEY as string);
+        const secretKey = process.env.JWT_SECRET_KEY??'secretKey';
         const { id } = jwt.verify(token, secretKey) as { id: number};
         
         const user = await authService.findUserById(id);

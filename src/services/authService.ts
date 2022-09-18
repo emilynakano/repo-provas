@@ -30,6 +30,8 @@ export async function loginUser(dataUser: authRepository.CreateUser) {
     const matchPassword = await bcrypt.compare(password, user.password);
     if(!matchPassword) throw errorUtils.unauthorizedError('user');
 
-    const token = jwt.sign({id: user.id}, (process.env.JWT_SECRET_KEY as string), {expiresIn: '30d'})
+    const secretKey = process.env.JWT_SECRET_KEY??'secretKey';
+    
+    const token = jwt.sign({id: user.id}, secretKey, {expiresIn: '30d'})
     return token;
 }
