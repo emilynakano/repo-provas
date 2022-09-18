@@ -29,6 +29,13 @@ describe("POST /tests", () => {
         expect(response.status).toBe(401);
     });
 
+    it("given a valid token and an invalid data test it should answer with status 422", async () => {
+        const token = await createToken();
+        const test = generateTest()
+
+        const response = await agent.post('/tests').set('Authorization', `Bearer ${token}`).send({...test, name: ''})
+        expect(response.status).toBe(422);
+    });
 
 });
 
