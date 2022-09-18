@@ -5,9 +5,11 @@ import { Test } from '@prisma/client';
 export type CreateTest = Omit<Test, "id">
 
 export async function insertTest( dataTest:CreateTest ) {
-  await prisma.test.create({
+  const testInserted = await prisma.test.create({
       data: dataTest
-  })
+  });
+  
+  return testInserted;
 }
 
 export async function getTestsFromDiscipline() {
@@ -134,4 +136,36 @@ export async function getTestsFromTeacher() {
   })
 
   return testsWithCategory
+};
+
+export async function getTestFromId(id: number) {
+  const tests = await prisma.test.findUnique({
+    where: {
+      id
+    },
+    select: {
+      name: true,
+      category: {
+        select: {
+          name: true
+        }
+      },
+      teachersDiscipline: {
+        select: {
+          teacher: {
+            select: {
+              name: true
+            }
+          },
+          discipline: {
+            select: {
+              name: true
+            }
+          }
+        }
+      }
+    }
+  })
+  
+  return tests;
 }

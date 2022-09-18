@@ -5,7 +5,8 @@ import * as teacherService from '../services/teacherService';
 import * as disciplineService from '../services/disciplineService';
 import * as teacherDisciplineService from '../services/teacherDisciplineService'
 
-import * as errorUtils from '../utils/errorUtils'
+import * as errorUtils from '../utils/errorUtils';
+import * as emailUtils from '../utils/sendEmailUtils';
 
 interface ITest {
     name: string;
@@ -36,12 +37,14 @@ export async function createTest( dataTest: ITest ) {
     const relationTeacherDiscipline = await teacherDisciplineService.getTeacherDiscipline( teacherId, disciplineId );
     if(!relationTeacherDiscipline) throw errorUtils.notFoundError('relation between teacher and discipline');
 
-    await testRepository.insertTest({
+    const insertedTest = await testRepository.insertTest({
         name,
         pdfUrl,
         categoryId, 
         teacherDisciplineId: relationTeacherDiscipline.id
     });
+
+    await emailUtils.sendEmail(insertedTest.id)
 }
 
 export async function getTestsFromDiscipline() {
@@ -52,6 +55,12 @@ export async function getTestsFromDiscipline() {
 
 export async function getTestsFromTeacher() {
     const tests = await testRepository.getTestsFromTeacher();
+    
+    return tests;
+}
+
+export async function getTestFromId(id: number) {
+    const tests = await testRepository.getTestFromId(id);
     
     return tests;
 }
