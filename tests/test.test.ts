@@ -68,6 +68,13 @@ describe("GET /tests/teachers", () => {
         expect(response.status).toBe(200);
     });
 
+    it("given a invalid token it should answer with status 401", async () => {
+        const wrongToken = await createWrongToken()
+
+        const response = await agent.post('/tests/teachers').set('Authorization', `Bearer ${wrongToken}`)
+        expect(response.status).toBe(401);
+    });
+
 });
 
 
