@@ -41,12 +41,13 @@ describe("POST /tests", () => {
 
 describe("GET /tests/disciplines", () => {
 
-    it("given a valid token it should answer with status 200", async () => {
+    it("given a valid token it should answer with status 200 and an array", async () => {
         const token = await createToken();
         const test = await generateTest();
 
         const response = await agent.get('/tests/disciplines').set('Authorization', `Bearer ${token}`)
         expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
     });
 
     it("given a invalid token it should answer with status 401", async () => {
@@ -60,12 +61,13 @@ describe("GET /tests/disciplines", () => {
 
 describe("GET /tests/teachers", () => {
 
-    it("given a valid token it should answer with status 200", async () => {
+    it("given a valid token it should answer with status 200 and an array", async () => {
         const token = await createToken();
         const test = await generateTest();
 
         const response = await agent.get('/tests/teachers').set('Authorization', `Bearer ${token}`)
         expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
     });
 
     it("given a invalid token it should answer with status 401", async () => {
