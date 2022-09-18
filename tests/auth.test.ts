@@ -12,14 +12,14 @@ beforeEach(async () => {
 const agent = supertest(app);
 
 describe("POST /sign-up", () => {
-    it("given a valid user it should return 201", async () => {
+    it("given a valid user it should answer with status 201 ", async () => {
         const user = await generateUser()
         const response = await agent.post("/sign-up").send(user);
         
         expect(response.status).toEqual(201);
     });
 
-    it("given a user already registred it should return 409", async () => {
+    it("given a user already registred it should answer with status 409", async () => {
         const user = await generateUser();
 
         await inserUser(user);
@@ -31,7 +31,7 @@ describe("POST /sign-up", () => {
 });
 
 describe("POST /sign-in", () => {
-    it("should answer with status 200 when credentials are valid", async () => {
+    it("given valid credentials should answer with status 200", async () => {
         const user = await generateUser();
 
         await inserUser(user);
@@ -44,7 +44,7 @@ describe("POST /sign-in", () => {
         expect(response.status).toEqual(200);
     });
 
-    it("should answer with status 401 when credentials are invalid", async () => {
+    it("given invalid credentials should answer with status 401", async () => {
         const user = await generateUser();
         const wrongUser = await generateUser();
 
