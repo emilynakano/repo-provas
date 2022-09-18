@@ -51,5 +51,7 @@ export async function getTestsFromDiscipline() {
 }
 
 export async function getTestsFromTeacher() {
+    const tests = await testRepository.getTestsFromTeacher();
     
+    return tests;
 }

@@ -80,5 +80,11 @@ export async function getTestsFromDiscipline() {
 }
 
 export async function getTestsFromTeacher() {
-    
+  const teachers = await prisma.teacher.findMany({
+    select: {
+      id: true,
+      name: true,
+    }
+  });
+
 }
