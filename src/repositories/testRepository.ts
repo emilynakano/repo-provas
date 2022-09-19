@@ -139,7 +139,7 @@ export async function getTestsFromTeacher() {
 };
 
 export async function getTestFromId(id: number) {
-  const tests = await prisma.test.findUnique({
+  const test = await prisma.test.findUnique({
     where: {
       id
     },
@@ -167,5 +167,5 @@ export async function getTestFromId(id: number) {
     }
   })
   
-  return tests;
+  return test;
 }
