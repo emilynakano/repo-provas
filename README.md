@@ -37,7 +37,7 @@ $ cd repo-provas
 # Put your DATABASE_URL, which must be a url that follows the example: 'postgres://youruser:yourpassword@localhost:5432/yourdatabase'
 # Put your PORT, which must be a port of the aplication.
 # Put your JWT_SECRET_KEY, which is a key that must be a string.
-# Put your SENDGRID_API_KEY, which is a key that must be a string and provided by senGgrid
+# Put your SENDGRID_API_KEY, which is a key that must be a string and provided by sendGgrid
 # Put your SENDGRID_EMAIL, which is a email that you provided to sendGgrid
 	
 # Finally, make a copy of '.env.example' to '.env'.
@@ -45,6 +45,9 @@ $ cp .env.example .env
 
 # Install dependencies.
 $ npm i -y
+
+# create database with prisma
+$ npx prisma migrate dev
 	
 # Run the project in the developer mode.
 $ npm run dev	
@@ -85,11 +88,18 @@ $ npm run dev
 
 ```
 {
-    email: fulano@gmail.com,
-    password: 1234567890,
-    confirmPassword: 1234567890
+    email: 'fulano@gmail.com',
+    password: '1234567890',
+    confirmPassword: '1234567890'
 }
 ```
+
+ The email field must be filled with a valid email, the password field must be filled with a string with a length greater than 10 characters and the confirmPassword field must be check with password field. If these rules are not followed, the server will respond with a status 422 and a message containing the errors.
+ 
+ If the email is already resgistred the server will respond with a status 409.
+ 
+ If everything is correct the server will respond with a status 201.
+ 
 <div />
 
 <div align="start"> 
@@ -108,7 +118,9 @@ $ npm run dev
 }
 ```
 
-The server will respond with an object in this format:
+If email doesn't exists or password doesn't match the server will respond with a status 401.
+
+If everything is correct the server will respond with a status 200 and an object in this format:
 
 ```
 {
@@ -135,6 +147,16 @@ The server will respond with an object in this format:
   "disciplineId": 1
 }
 ```
+
+If token is invalid or non-existent the server will respond with a status 401.
+
+The name field must be filled with a string, the pdfUrl field must be filled with a valid url, the categoryId, teacherId and disciplineId must be a number. If these rules are not followed, the server will respond with a status 422 and a message containing the errors.
+
+The categoryId field must be exists, teacherId and disciplineId must exist and have relation. If these rules are not followed, the server will respond with a status 404.
+
+If everything is correct the server will respond with a status 200.
+
+
 <div />
 
 <div align="start"> 
@@ -145,7 +167,9 @@ The server will respond with an object in this format:
   
   Send a Authorization Header with format Bearer Token.
   
-  The server will respond with an array in this format:
+  If token is invalid or non-existent the server will respond with a status 401.
+
+  If everything is correct the server will respond with a status 200 and an array in this format:
   
 
 ```
@@ -176,6 +200,8 @@ The server will respond with an object in this format:
   }
 ]
 ```
+
+
 <div />
 
 <div align="start"> 
@@ -186,7 +212,9 @@ The server will respond with an object in this format:
   
   Send a Authorization Header with format Bearer Token.
   
-  The server will respond with an array in this format: 
+   If token is invalid or non-existent the server will respond with a status 401.
+
+  If everything is correct the server will respond with a status 200 and an array in this format:
   
 
 ```
