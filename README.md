@@ -18,43 +18,6 @@ A system for sharing tests between students.
 	
 <div align="start"> 
 
-## 🏁 Running this project
-	
-Before starting, you will need to have the following tools installed on your machine: Postgres, Node.js.
-
-Besides, it's good to have an editor to work with the code like VSCode.
-	
-```
-	
-# First, clone this repository.
-$ git clone https://github.com/emilynakano/repo-provas.git
-
-# Acces this repository.
-$ cd repo-provas
-
-# Go to the '.env.example' in your code editor.
-	
-# Put your DATABASE_URL, which must be a url that follows the example: 'postgres://youruser:yourpassword@localhost:5432/yourdatabase'
-# Put your PORT, which must be a port of the aplication.
-# Put your JWT_SECRET_KEY, which is a key that must be a string.
-# Put your SENDGRID_API_KEY, which is a key that must be a string and provided by sendGgrid
-# Put your SENDGRID_EMAIL, which is a email that you provided to sendGgrid
-	
-# Finally, make a copy of '.env.example' to '.env'.
-$ cp .env.example .env
-
-# Install dependencies.
-$ npm i -y
-
-# create database with prisma
-$ npx prisma migrate dev
-	
-# Run the project in the developer mode.
-$ npm run dev	
-	
-```
-
-**NOTE:** There is a Thunder Client collection in this project's folder, it contains all the project routes with an example request body. To use it you will need to import it into your Thunder Client and put the url you are using.
 	
 <div />
 	
@@ -93,12 +56,22 @@ $ npm run dev
     confirmPassword: '1234567890'
 }
 ```
+#### Request:
 
- The email field must be filled with a valid email, the password field must be filled with a string with a length greater than 10 characters and the confirmPassword field must be check with password field. If these rules are not followed, the server will respond with a status 422 and a message containing the errors.
- 
- If the email is already resgistred the server will respond with a status 409.
- 
- If everything is correct the server will respond with a status 201.
+|body| type | description
+|--|--|--|
+| email | string | valid email  |
+| password | string |  at least 10 characters |
+| confirmPassword | string |  equal to password  |
+
+#### Response:
+
+|code| description | 
+|--|--|
+| 422 | request body is invalid | 
+| 409 | email already registred | 
+| 201 | created | 
+
  
 <div />
 
@@ -118,9 +91,21 @@ $ npm run dev
 }
 ```
 
-If email doesn't exists or password doesn't match the server will respond with a status 401.
+#### Request:
 
-If everything is correct the server will respond with a status 200 and an object in this format:
+|body| type | description
+|--|--|--|
+| email | string | valid email  |
+| password | string |  at least 10 characters |
+
+#### Response:
+
+|code| description | 
+|--|--|
+| 422 | request body is invalid | 
+| 401 | email doesn't exist or password doesn't match | 
+| 200 | ok | 
+
 
 ```
 {
@@ -148,13 +133,27 @@ If everything is correct the server will respond with a status 200 and an object
 }
 ```
 
-If token is invalid or non-existent the server will respond with a status 401.
+#### Request:
 
-The name field must be filled with a string, the pdfUrl field must be filled with a valid url, the categoryId, teacherId and disciplineId must be a number. If these rules are not followed, the server will respond with a status 422 and a message containing the errors.
+|body| type | description
+|--|--|--|
+| name | string | valid name  |
+| pdfUrl | string |  valid url |
+| categoryId | number |  id of category |
+| teacherId | number |  id of teacher |
+| disciplineId | number |  id of discipline |
 
-The categoryId field must be exists, teacherId and disciplineId must exist and have relation. If these rules are not followed, the server will respond with a status 404.
 
-If everything is correct the server will respond with a status 201 and an email will be sent to all registered users notifying the new test added.
+#### Response:
+
+|code| description | 
+|--|--|
+| 422 | request body is invalid | 
+| 401 | invalid or non-existent token | 
+| 201 | created | 
+
+
+If statusCode is 201 an email will be sent to all registered users notifying the new test added.
 
 
 <div />
@@ -167,9 +166,15 @@ If everything is correct the server will respond with a status 201 and an email 
   
   Send a Authorization Header with format Bearer Token.
   
-  If token is invalid or non-existent the server will respond with a status 401.
+  #### Response:
 
-  If everything is correct the server will respond with a status 200 and an array in this format:
+|code| description | 
+|--|--|
+| 401 | invalid or non-existent token | 
+| 200 | ok | 
+
+
+  If statusCode is 200, the server will respond with an array in this format:
   
 
 ```
@@ -212,11 +217,16 @@ If everything is correct the server will respond with a status 201 and an email 
   
   Send a Authorization Header with format Bearer Token.
   
-   If token is invalid or non-existent the server will respond with a status 401.
+  #### Response:
 
-  If everything is correct the server will respond with a status 200 and an array in this format:
+|code| description | 
+|--|--|
+| 401 | invalid or non-existent token | 
+| 200 | ok | 
+
+
+  If statusCode is 200, the server will respond with an array in this format:
   
-
 ```
 [
   {
@@ -240,4 +250,44 @@ If everything is correct the server will respond with a status 201 and an email 
 ]
 ```
 <div />
+
+
+
+## 🏁 Running this project
+	
+Before starting, you will need to have the following tools installed on your machine: Postgres, Node.js.
+
+Besides, it's good to have an editor to work with the code like VSCode.
+	
+```
+	
+# First, clone this repository.
+$ git clone https://github.com/emilynakano/repo-provas.git
+
+# Acces this repository.
+$ cd repo-provas
+
+# Go to the '.env.example' in your code editor.
+	
+# Put your DATABASE_URL, which must be a url that follows the example: 'postgres://youruser:yourpassword@localhost:5432/yourdatabase'
+# Put your PORT, which must be a port of the aplication.
+# Put your JWT_SECRET_KEY, which is a key that must be a string.
+# Put your SENDGRID_API_KEY, which is a key that must be a string and provided by sendGgrid
+# Put your SENDGRID_EMAIL, which is a email that you provided to sendGgrid
+	
+# Finally, make a copy of '.env.example' to '.env'.
+$ cp .env.example .env
+
+# Install dependencies.
+$ npm i -y
+
+# create database with prisma
+$ npx prisma migrate dev
+	
+# Run the project in the developer mode.
+$ npm run dev	
+	
+```
+
+**NOTE:** There is a Thunder Client collection in this project's folder, it contains all the project routes with an example request body. To use it you will need to import it into your Thunder Client and put the url you are using.
 	
