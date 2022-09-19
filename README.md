@@ -64,7 +64,7 @@ $ npm run dev
 
 <div align="start"> 
 
-1. User creates a login (name, email, password).
+1. User creates a login (email, password).
 
 2. User logs in and receives a token.
 
@@ -154,7 +154,7 @@ The name field must be filled with a string, the pdfUrl field must be filled wit
 
 The categoryId field must be exists, teacherId and disciplineId must exist and have relation. If these rules are not followed, the server will respond with a status 404.
 
-If everything is correct the server will respond with a status 200.
+If everything is correct the server will respond with a status 201 and an email will be sent to all registered users notifying the new test added.
 
 
 <div />
