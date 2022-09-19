@@ -104,7 +104,7 @@ A system for sharing tests between students.
 |--|--|
 | 422 | request body is invalid | 
 | 401 | email doesn't exist or password doesn't match | 
-| 200 | ok | 
+| 200 | ok, returns a token | 
 
 
 ```
