@@ -1,7 +1,7 @@
 import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
-import { getUsers } from '../repositories/authRepository';
-import { getTestFromId } from '../repositories/testRepository';
+import { getUsers } from '../services/authService';
+import { getTestFromId } from '../services/testService';
 
 dotenv.config();
 
@@ -21,11 +21,6 @@ export async function sendEmail(id: number) {
   users.forEach(user => {
     sgMail
     .send({...msg, to: user.email})
-    .then(() => {
-    })
-    .catch((error) => {
-      console.error(error)
-    })
         
   });
 }
