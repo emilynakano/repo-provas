@@ -96,7 +96,7 @@ A system for sharing tests between students.
 |body| type | description
 |--|--|--|
 | email | string | valid email  |
-| password | string |  at least 10 characters |
+| password | string |  valid password |
 
 #### Response:
 
@@ -104,8 +104,7 @@ A system for sharing tests between students.
 |--|--|
 | 422 | request body is invalid | 
 | 401 | email doesn't exist or password doesn't match | 
-| 200 | ok, returns a token | 
-
+| 200 | ok, returns a token |
 
 ```
 {
@@ -150,6 +149,7 @@ A system for sharing tests between students.
 |--|--|
 | 422 | request body is invalid | 
 | 401 | invalid or non-existent token | 
+| 404 | teacher, category, discipline or teacher-discipline-relation not found |
 | 201 | created | 
 
 
